@@ -4,6 +4,7 @@ import {
   Controller,
   HttpCode,
   Post,
+  UsePipes,
 } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { hash } from "bcryptjs";
