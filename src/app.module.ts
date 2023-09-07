@@ -7,6 +7,7 @@ import { AuthenticateController } from "./controllers/authenticate.controller";
 import { CreateAccountController } from "./controllers/create-account.controller";
 import { CreateQuestionController } from "./controllers/create-question.controller";
 import { JwtStrategy } from "./auth/jwt.strategy";
+import { FetchRecentQuestionsController } from "./controllers/fetch-recent-question.controller";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { JwtStrategy } from "./auth/jwt.strategy";
     CreateAccountController,
     AuthenticateController,
     CreateQuestionController,
+    FetchRecentQuestionsController,
   ],
   providers: [JwtStrategy, PrismaService],
 })
