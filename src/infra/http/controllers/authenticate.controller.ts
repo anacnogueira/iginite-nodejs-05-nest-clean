@@ -7,8 +7,8 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { compare } from "bcryptjs";
-import { ZodValidationPipe } from "src/pipes/zod-validation-pipe";
-import { PrismaService } from "@/prisma/prisma.service";
+import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe";
+import { PrismaService } from "@/infra/prisma/prisma.service";
 import { z } from "zod";
 
 const authemticateBodySchema = z.object({
@@ -21,7 +21,7 @@ type AuthenticateBodySchema = z.infer<typeof authemticateBodySchema>;
 export class AuthenticateController {
   constructor(
     private prisma: PrismaService,
-    private jwt: JwtService,
+    private jwt: JwtService
   ) {}
 
   @Post()
