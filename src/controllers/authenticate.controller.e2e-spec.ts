@@ -4,7 +4,6 @@ import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import { hash } from "bcryptjs";
 import request from "supertest";
-import { string } from "zod";
 
 describe("Authenticate (e2e)", () => {
   let app: INestApplication;

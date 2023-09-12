@@ -23,7 +23,7 @@ export class CreateQuestionController {
   @Post()
   async handle(
     @Body(bodyValidationPipe) body: CreateQuestionBodySchema,
-    @CurrentUser() user: UserPayload
+    @CurrentUser() user: UserPayload,
   ) {
     const { title, content } = body;
     const userId = user.sub;
