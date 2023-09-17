@@ -20,7 +20,7 @@ type AuthenticateStudentUseCaseResponse = Either<
 export class AuthenticateStudentUseCase {
   constructor(
     private studentsRepository: StudentsRepository,
-    private hashCompare: HashComparer,
+    private hashComparer: HashComparer,
     private encrypter: Encrypter
   ) {}
 
@@ -34,7 +34,7 @@ export class AuthenticateStudentUseCase {
       return left(new WrongCredentialsError());
     }
 
-    const isPasswordValid = await this.hashCompare.compare(
+    const isPasswordValid = await this.hashComparer.compare(
       password,
       student.password
     );
