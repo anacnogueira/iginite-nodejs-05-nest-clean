@@ -57,4 +57,5 @@ export class PrismaQuestionCommentsRepository
         id: questionComment.id.toString(),
       },
     });
+  }
 }

@@ -22,7 +22,7 @@ export class PrismaQuestionAttachmentsRepository
     return questionAttachments.map(PrismaQuestionAttachmentMapper.toDomain);
   }
 
-  deleteManyByQuestionId(questionId: string): Promise<void> {
+  async deleteManyByQuestionId(questionId: string): Promise<void> {
     await this.prisma.attachment.deleteMany({
       where: {
         questionId,
