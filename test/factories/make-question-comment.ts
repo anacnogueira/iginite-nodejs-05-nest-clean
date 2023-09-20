@@ -4,10 +4,12 @@ import {
   QuestionComment,
   QuestionCommentProps,
 } from "@/domain/forum/enterprise/entities/question-comment";
+import { PrismaService } from "@/infra/database/prisma/prisma.service";
+import { PrismaQuestionCommentMapper } from "@/infra/database/prisma/mappers/prisma-question-comment-mapper";
 
 export function makeQuestionComment(
   override: Partial<QuestionCommentProps> = {},
-  id?: UniqueEntityID,
+  id?: UniqueEntityID
 ) {
   const questionComment = QuestionComment.create(
     {
@@ -16,8 +18,25 @@ export function makeQuestionComment(
       content: faker.lorem.text(),
       ...override,
     },
-    id,
+    id
   );
 
   return questionComment;
+}
+
+@Injectable()
+export class QuestionCommentFactory {
+  constructor(private prisma: PrismaService) {}
+
+  async makePrismaQuestion(
+    data: Partial<QuestionCommentProps> = {}
+  ): Promise<QuestionComment> {
+    const questionComment = makeQuestionComment(data);
+
+    await this.prisma.comment.create({
+      data: PrismaQuestionCommentMapper.toPrisma(questionComment),
+    });
+
+    return questionComment;
+  }
 }
