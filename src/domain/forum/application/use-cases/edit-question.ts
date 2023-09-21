@@ -7,6 +7,7 @@ import { QuestionAttachment } from "../../enterprise/entities/question-attachmen
 import { QuestionAttachmentList } from "../../enterprise/entities/question-attachment-list";
 import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
 import { QuestionAttachmentsRepository } from "../repositories/question-attachments-repository";
+import { Injectable } from "@nestjs/common";
 
 interface EditQuestionUseCaseRequest {
   authorId: string;
@@ -22,11 +23,11 @@ type EditQuestionUseCaseResponse = Either<
     question: Question;
   }
 >;
-
+@Injectable()
 export class EditQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private questionAttachmentsRespository: QuestionAttachmentsRepository,
+    private questionAttachmentsRespository: QuestionAttachmentsRepository
   ) {}
 
   async execute({
@@ -48,11 +49,11 @@ export class EditQuestionUseCase {
 
     const currentQuestionAttachments =
       await this.questionAttachmentsRespository.findManyByQuestionId(
-        questionId,
+        questionId
       );
 
     const questionAttachmentList = new QuestionAttachmentList(
-      currentQuestionAttachments,
+      currentQuestionAttachments
     );
 
     const questionAttachments = attachmentsIds.map((attachmentId) => {
