@@ -1,40 +1,40 @@
 import { InMemoryAnswersRepository } from "test/repositories/in-memopry-answers-repository";
 import { makeAnswer } from "test/factories/make-answer";
-import { FetchAnswerAnswersUseCase } from "./fetch-question-answers";
+import { FetchQuestionAnswersUseCase } from "./fetch-question-answers";
 import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
-let sut: FetchAnswerAnswersUseCase;
+let sut: FetchQuestionAnswersUseCase;
 
 describe("Fetch Answer Answers", () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     );
-    sut = new FetchAnswerAnswersUseCase(inMemoryAnswersRepository);
+    sut = new FetchQuestionAnswersUseCase(inMemoryAnswersRepository);
   });
 
   it("should be able to fetch question answers", async () => {
     await inMemoryAnswersRepository.create(
       makeAnswer({
         questionId: new UniqueEntityID("question-1"),
-      }),
+      })
     );
 
     await inMemoryAnswersRepository.create(
       makeAnswer({
         questionId: new UniqueEntityID("question-1"),
-      }),
+      })
     );
 
     await inMemoryAnswersRepository.create(
       makeAnswer({
         questionId: new UniqueEntityID("question-1"),
-      }),
+      })
     );
 
     const result = await sut.execute({
@@ -50,7 +50,7 @@ describe("Fetch Answer Answers", () => {
       await inMemoryAnswersRepository.create(
         makeAnswer({
           questionId: new UniqueEntityID("question-1"),
-        }),
+        })
       );
     }
 
