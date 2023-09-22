@@ -55,7 +55,7 @@ import { PrismaAnswerAttachmentsRepository } from "./prisma/repositories/prisma-
     QuestionAttachmentsRepository,
     AnswersRepository,
     AnswerCommentsRepository,
-    AnswerCommentsRepository,
+    AnswerAttachmentsRepository,
   ],
 })
 export class DatabaseModule {}
