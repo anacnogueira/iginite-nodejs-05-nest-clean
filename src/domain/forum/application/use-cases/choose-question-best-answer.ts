@@ -4,27 +4,28 @@ import { QuestionsRepository } from "../repositories/questions-repository";
 import { Either, left, right } from "@/core/either";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { NotAllowedError } from "./errors/not-allowed-error";
+import { Injectable } from "@nestjs/common";
 
-interface ChooseQuestionBestAwswerUseCaseRequest {
+interface ChooseQuestionBestAnswerUseCaseRequest {
   authorId: string;
   answerId: string;
 }
 
-type ChooseQuestionBestAwswerUseCaseResponse = Either<
+type ChooseQuestionBestAnswerUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
   { question: Question }
 >;
-
-export class ChooseQuestionBestAwswerUseCase {
+@Injectable()
+export class ChooseQuestionBestAnswerUseCase {
   constructor(
     private questionRepository: QuestionsRepository,
-    private answersRepository: AnswersRepository,
+    private answersRepository: AnswersRepository
   ) {}
 
   async execute({
     authorId,
     answerId,
-  }: ChooseQuestionBestAwswerUseCaseRequest): Promise<ChooseQuestionBestAwswerUseCaseResponse> {
+  }: ChooseQuestionBestAnswerUseCaseRequest): Promise<ChooseQuestionBestAnswerUseCaseResponse> {
     const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {
@@ -32,7 +33,7 @@ export class ChooseQuestionBestAwswerUseCase {
     }
 
     const question = await this.questionRepository.findById(
-      answer.questionId.toString(),
+      answer.questionId.toString()
     );
 
     if (!question) {
