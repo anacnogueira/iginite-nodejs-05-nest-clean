@@ -2,35 +2,35 @@ import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questio
 import { InMemoryAnswersRepository } from "test/repositories/in-memopry-answers-repository";
 import { makeQuestion } from "test/factories/make-question";
 import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
-import { ChooseQuestionBestAwswerUseCase } from "./choose-question-best-answer";
 import { makeAnswer } from "test/factories/make-answer";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
+import { ChooseQuestionBestAnswerUseCase } from "./choose-question-best-answer";
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
-let sut: ChooseQuestionBestAwswerUseCase;
+let sut: ChooseQuestionBestAnswerUseCase;
 
 describe("Choose Question Best Answer", () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
-      inMemoryQuestionAttachmentsRepository,
+      inMemoryQuestionAttachmentsRepository
     );
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     );
-    sut = new ChooseQuestionBestAwswerUseCase(
+    sut = new ChooseQuestionBestAnswerUseCase(
       inMemoryQuestionsRepository,
-      inMemoryAnswersRepository,
+      inMemoryAnswersRepository
     );
   });
 
@@ -49,7 +49,7 @@ describe("Choose Question Best Answer", () => {
     });
 
     expect(inMemoryQuestionsRepository.items[0].bestAnswerId).toEqual(
-      answer.id,
+      answer.id
     );
   });
 
