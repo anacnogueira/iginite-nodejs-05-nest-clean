@@ -14,7 +14,7 @@ interface UploadAndCreateAttachmentUseCaseRequest {
 type UploadAndCreateAttachmentUseCaseResponse = Either<
   InvalidAttachmentTypeError,
   {
-    stuattachment: Attachment;
+    attachment: Attachment;
   }
 >;
 @Injectable()
@@ -30,24 +30,19 @@ export class UploadAndCreateAttachmentUseCase {
     body,
   }: UploadAndCreateAttachmentUseCaseRequest): Promise<UploadAndCreateAttachmentUseCaseResponse> {
     const validTypes = /^(image\/(jpeg|png))$|âpplication\/pdf$/;
-
     if (!validTypes.test(fileType)) {
       return left(new InvalidAttachmentTypeError(fileType));
     }
-
     const { url } = await this.uploader.upload({
       fileName,
       fileType,
       body,
     });
-
     const attachment = Attachment.create({
       title: fileName,
-      url: fileName,
+      url,
     });
-
     await this.attachmentRespository.create(attachment);
-
     return right({
       attachment,
     });
