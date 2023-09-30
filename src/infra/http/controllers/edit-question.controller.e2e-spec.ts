@@ -16,7 +16,7 @@ describe("Edit question (e2e)", () => {
   let prisma: PrismaService;
   let questionFactory: QuestionFactory;
   let attachmentFactory: AttachmentFactory;
-  let questionAttachemntFactory: QuestionAttachmentFactory;
+  let questionAttachmentFactory: QuestionAttachmentFactory;
   let studentFactory: StudentFactory;
 
   beforeAll(async () => {
@@ -36,7 +36,7 @@ describe("Edit question (e2e)", () => {
     studentFactory = moduleRef.get(StudentFactory);
     questionFactory = moduleRef.get(QuestionFactory);
     attachmentFactory = moduleRef.get(AttachmentFactory);
-    questionAttachemntFactory = moduleRef.get(QuestionAttachmentFactory);
+    questionAttachmentFactory = moduleRef.get(QuestionAttachmentFactory);
     jwt = moduleRef.get(JwtService);
     await app.init();
   });
@@ -53,12 +53,12 @@ describe("Edit question (e2e)", () => {
     const attachment1 = await attachmentFactory.makePrismaAttachment();
     const attachment2 = await attachmentFactory.makePrismaAttachment();
 
-    await questionAttachemntFactory.makePrismaQuestionAttachment({
+    await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment1.id,
       questionId: question.id,
     });
 
-    await questionAttachemntFactory.makePrismaQuestionAttachment({
+    await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment2.id,
       questionId: question.id,
     });
