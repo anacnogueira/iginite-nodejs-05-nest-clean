@@ -1,7 +1,7 @@
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { InMemoryAnswersRepository } from "test/repositories/in-memopry-answers-repository";
 import { makeQuestion } from "test/factories/make-question";
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { makeAnswer } from "test/factories/make-answer";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";

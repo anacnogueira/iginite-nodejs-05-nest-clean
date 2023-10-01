@@ -1,4 +1,4 @@
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { InMemoryQuestionCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { FetchQuestionCommentsUseCase } from "./fetch-question-comments";
 import { makeQuestionComment } from "test/factories/make-question-comment";
@@ -17,19 +17,19 @@ describe("Fetch Comment Comments", () => {
     await inMemoryQuestionsCommentsRepository.create(
       makeQuestionComment({
         questionId: new UniqueEntityID("question-1"),
-      }),
+      })
     );
 
     await inMemoryQuestionsCommentsRepository.create(
       makeQuestionComment({
         questionId: new UniqueEntityID("question-1"),
-      }),
+      })
     );
 
     await inMemoryQuestionsCommentsRepository.create(
       makeQuestionComment({
         questionId: new UniqueEntityID("question-1"),
-      }),
+      })
     );
 
     const result = await sut.execute({
@@ -45,7 +45,7 @@ describe("Fetch Comment Comments", () => {
       await inMemoryQuestionsCommentsRepository.create(
         makeQuestionComment({
           questionId: new UniqueEntityID("question-1"),
-        }),
+        })
       );
     }
 

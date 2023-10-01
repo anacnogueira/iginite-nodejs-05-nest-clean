@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { AnswerAttachment } from "../../enterprise/entities/answer-attachment";
 import { AnswerAttachmentList } from "../../enterprise/entities/answer-attachment-list";
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { AnswerAttachmentsRepository } from "../repositories/answer-attachments-repository";
 import { Injectable } from "@nestjs/common";
 

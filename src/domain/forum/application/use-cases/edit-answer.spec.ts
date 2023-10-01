@@ -1,7 +1,7 @@
 import { InMemoryAnswersRepository } from "test/repositories/in-memopry-answers-repository";
 import { makeAnswer } from "test/factories/make-answer";
 import { EditAnswerUseCase } from "./edit-answer";
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 import { makeAnswerAttachment } from "test/factories/make-answer-attachment";

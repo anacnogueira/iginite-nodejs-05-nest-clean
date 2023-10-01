@@ -1,4 +1,4 @@
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import {
   QuestionAttachment,
   QuestionAttachmentProps,

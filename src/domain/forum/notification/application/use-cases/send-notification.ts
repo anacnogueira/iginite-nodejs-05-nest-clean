@@ -1,4 +1,4 @@
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { Either, right } from "@/core/either";
 import { Notification } from "../enterprise/entitties/notification";
 import { NotificationsRepository } from "../repositories/notifications-repository";

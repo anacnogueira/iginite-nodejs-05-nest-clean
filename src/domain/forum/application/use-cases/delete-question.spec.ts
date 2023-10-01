@@ -1,7 +1,7 @@
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { makeQuestion } from "test/factories/make-question";
 import { DeleteQuestionUseCase } from "./delete-question";
-import { UniqueEntityID } from "@/core/types/entities/unique-entity-id";
+import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { makeQuestionAttachment } from "test/factories/make-question-attachment";
@@ -15,7 +15,7 @@ describe("Delete Question", () => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
-      inMemoryQuestionAttachmentsRepository,
+      inMemoryQuestionAttachmentsRepository
     );
     sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository);
   });
@@ -25,7 +25,7 @@ describe("Delete Question", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("question-1"),
+      new UniqueEntityID("question-1")
     );
 
     await inMemoryQuestionsRepository.create(newQuestion);
@@ -38,7 +38,7 @@ describe("Delete Question", () => {
       makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityID("2"),
-      }),
+      })
     );
 
     await sut.execute({
@@ -55,7 +55,7 @@ describe("Delete Question", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("question-1"),
+      new UniqueEntityID("question-1")
     );
 
     await inMemoryQuestionsRepository.create(newQuestion);
