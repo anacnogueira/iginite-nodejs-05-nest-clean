@@ -1,6 +1,5 @@
 import { PaginationParams } from "@/core/types/repositories/pagination-params";
 import { QuestionCommentsRepository } from "@/domain/forum/application/repositories/question-comments-repository";
-import { StudentsRepository } from "@/domain/forum/application/repositories/students-repository";
 import { QuestionComment } from "@/domain/forum/enterprise/entities/question-comment";
 import { InMemoryStudentsRepository } from "./in-memory-students-repoistory";
 import { CommentWithAuthor } from "@/domain/forum/enterprise/entities/value-objects/comment-with-author";
@@ -22,7 +21,7 @@ export class InMemoryQuestionCommentsRepository
 
   async findManyByQuestionIdWithAuthor(
     questionId: string,
-    { page }: PaginationParams
+    { page }: PaginationParams,
   ) {
     const questionComments = this.items
       .filter((item) => item.questionId.toString() === questionId)
@@ -34,7 +33,7 @@ export class InMemoryQuestionCommentsRepository
 
         if (!author) {
           throw new Error(
-            `Author with ID "${comment.authorId.toString()}" does not exist.`
+            `Author with ID "${comment.authorId.toString()}" does not exist.`,
           );
         }
 
@@ -53,7 +52,7 @@ export class InMemoryQuestionCommentsRepository
 
   async findById(id: string): Promise<QuestionComment | null> {
     const questionComment = this.items.find(
-      (item) => item.id.toString() === id
+      (item) => item.id.toString() === id,
     );
 
     if (!questionComment) {
@@ -65,7 +64,7 @@ export class InMemoryQuestionCommentsRepository
 
   async delete(questionComment: QuestionComment) {
     const itemIndex = this.items.findIndex(
-      (item) => item.id === questionComment.id
+      (item) => item.id === questionComment.id,
     );
 
     this.items.splice(itemIndex, 1);

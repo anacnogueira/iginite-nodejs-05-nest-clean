@@ -17,7 +17,7 @@ describe("Autehenticate Student", () => {
     sut = new AuthenticateStudentUseCase(
       inMemoryStudentsRepository,
       fakeHasher,
-      fakeEncrypter
+      fakeEncrypter,
     );
   });
 

@@ -37,7 +37,7 @@ describe("Register Student", () => {
 
     expect(result.isRight()).toBe(true);
     expect(inMemoryStudentsRepository.items[0].password).toEqual(
-      hashedPassword
+      hashedPassword,
     );
   });
 });

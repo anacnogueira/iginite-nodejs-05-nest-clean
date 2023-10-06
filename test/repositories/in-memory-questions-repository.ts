@@ -13,7 +13,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
   constructor(
     private questionAttachmentsRepository: InMemoryQuestionAttachmentsRepository,
     private attachmentsRepository: InMemoryAttachmentsRepository,
-    private studentsRepository: InMemoryStudentsRepository
+    private studentsRepository: InMemoryStudentsRepository,
   ) {}
 
   async findById(id: string): Promise<Question | null> {
@@ -49,14 +49,14 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
     if (!author) {
       throw new Error(
-        `Author with ID "${question.authorId.toString()}" does not exist.`
+        `Author with ID "${question.authorId.toString()}" does not exist.`,
       );
     }
 
     const questionAttachments = this.questionAttachmentsRepository.items.filter(
       (questionAttachment) => {
         return questionAttachment.questionId.equals(question.id);
-      }
+      },
     );
 
     const attachments = questionAttachments.map((questionAttachment) => {
@@ -66,7 +66,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
       if (!attachment) {
         throw new Error(
-          `Attachment with ID "${questionAttachment.attachmentId.toString()}" does not exist.`
+          `Attachment with ID "${questionAttachment.attachmentId.toString()}" does not exist.`,
         );
       }
       return attachment;
@@ -98,7 +98,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     this.items.push(question);
 
     await this.questionAttachmentsRepository.createMany(
-      question.attachments.getItems()
+      question.attachments.getItems(),
     );
 
     DomainEvents.dispatchEventsForAggregate(question.id);
@@ -110,11 +110,11 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     this.items[itemIndex] = question;
 
     await this.questionAttachmentsRepository.createMany(
-      question.attachments.getNewItems()
+      question.attachments.getNewItems(),
     );
 
     await this.questionAttachmentsRepository.deleteMany(
-      question.attachments.getRemovedItems()
+      question.attachments.getRemovedItems(),
     );
 
     DomainEvents.dispatchEventsForAggregate(question.id);
@@ -126,7 +126,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     this.items.splice(itemIndex, 1);
 
     this.questionAttachmentsRepository.deleteManyByQuestionId(
-      question.id.toString()
+      question.id.toString(),
     );
   }
 }

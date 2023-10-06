@@ -15,11 +15,11 @@ describe("Edit Answer", () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository
+      inMemoryAnswerAttachmentsRepository,
     );
     sut = new EditAnswerUseCase(
       inMemoryAnswersRepository,
-      inMemoryAnswerAttachmentsRepository
+      inMemoryAnswerAttachmentsRepository,
     );
   });
 
@@ -28,7 +28,7 @@ describe("Edit Answer", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("answer-1")
+      new UniqueEntityID("answer-1"),
     );
 
     await inMemoryAnswersRepository.create(newAnswer);
@@ -41,7 +41,7 @@ describe("Edit Answer", () => {
       makeAnswerAttachment({
         answerId: newAnswer.id,
         attachmentId: new UniqueEntityID("2"),
-      })
+      }),
     );
 
     await sut.execute({
@@ -55,22 +55,22 @@ describe("Edit Answer", () => {
       content: "New Content",
     });
     expect(
-      inMemoryAnswersRepository.items[0].attachments.currentItems
+      inMemoryAnswersRepository.items[0].attachments.currentItems,
     ).toHaveLength(2);
     expect(inMemoryAnswersRepository.items[0].attachments.currentItems).toEqual(
       [
         expect.objectContaining({ attachmentId: new UniqueEntityID("1") }),
         expect.objectContaining({ attachmentId: new UniqueEntityID("3") }),
-      ]
+      ],
     );
     expect(
-      inMemoryAnswersRepository.items[0].attachments.currentItems
+      inMemoryAnswersRepository.items[0].attachments.currentItems,
     ).toHaveLength(2);
     expect(inMemoryAnswersRepository.items[0].attachments.currentItems).toEqual(
       [
         expect.objectContaining({ attachmentId: new UniqueEntityID("1") }),
         expect.objectContaining({ attachmentId: new UniqueEntityID("3") }),
-      ]
+      ],
     );
   });
 
@@ -79,7 +79,7 @@ describe("Edit Answer", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("answer-1")
+      new UniqueEntityID("answer-1"),
     );
 
     await inMemoryAnswersRepository.create(newAnswer);
@@ -100,7 +100,7 @@ describe("Edit Answer", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("question-1")
+      new UniqueEntityID("question-1"),
     );
 
     await inMemoryAnswersRepository.create(newAnswer);
@@ -113,7 +113,7 @@ describe("Edit Answer", () => {
       makeAnswerAttachment({
         answerId: newAnswer.id,
         attachmentId: new UniqueEntityID("2"),
-      })
+      }),
     );
 
     const result = await sut.execute({
@@ -133,7 +133,7 @@ describe("Edit Answer", () => {
         expect.objectContaining({
           attachmentId: new UniqueEntityID("3"),
         }),
-      ])
+      ]),
     );
   });
 });

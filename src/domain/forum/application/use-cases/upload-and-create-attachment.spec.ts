@@ -14,7 +14,7 @@ describe("Upload and create attachment", () => {
 
     sut = new UploadAndCreateAttachmentUseCase(
       inMemoryAttachmentsRepository,
-      fakeUploader
+      fakeUploader,
     );
   });
 
@@ -32,7 +32,7 @@ describe("Upload and create attachment", () => {
     expect(fakeUploader.uploads[0]).toEqual(
       expect.objectContaining({
         fileName: "profile.jpg",
-      })
+      }),
     );
   });
 

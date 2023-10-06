@@ -13,7 +13,7 @@ describe("Fetch Answer Answers", () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository
+      inMemoryAnswerAttachmentsRepository,
     );
     sut = new FetchQuestionAnswersUseCase(inMemoryAnswersRepository);
   });
@@ -22,19 +22,19 @@ describe("Fetch Answer Answers", () => {
     await inMemoryAnswersRepository.create(
       makeAnswer({
         questionId: new UniqueEntityID("question-1"),
-      })
+      }),
     );
 
     await inMemoryAnswersRepository.create(
       makeAnswer({
         questionId: new UniqueEntityID("question-1"),
-      })
+      }),
     );
 
     await inMemoryAnswersRepository.create(
       makeAnswer({
         questionId: new UniqueEntityID("question-1"),
-      })
+      }),
     );
 
     const result = await sut.execute({
@@ -50,7 +50,7 @@ describe("Fetch Answer Answers", () => {
       await inMemoryAnswersRepository.create(
         makeAnswer({
           questionId: new UniqueEntityID("question-1"),
-        })
+        }),
       );
     }
 

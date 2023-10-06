@@ -8,7 +8,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
   public items: Answer[] = [];
 
   constructor(
-    private answerAttachmentsRepository: AnswerAttachmentsRepository
+    private answerAttachmentsRepository: AnswerAttachmentsRepository,
   ) {}
 
   async findById(id: string): Promise<Answer | null> {
@@ -33,7 +33,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     this.items.push(answer);
 
     await this.answerAttachmentsRepository.createMany(
-      answer.attachments.getItems()
+      answer.attachments.getItems(),
     );
 
     DomainEvents.dispatchEventsForAggregate(answer.id);
@@ -45,11 +45,11 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     this.items[itemIndex] = answer;
 
     await this.answerAttachmentsRepository.createMany(
-      answer.attachments.getNewItems()
+      answer.attachments.getNewItems(),
     );
 
     await this.answerAttachmentsRepository.deleteMany(
-      answer.attachments.getRemovedItems()
+      answer.attachments.getRemovedItems(),
     );
 
     DomainEvents.dispatchEventsForAggregate(answer.id);

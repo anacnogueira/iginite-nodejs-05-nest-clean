@@ -63,7 +63,7 @@ describe("Fetch Comment Comments", () => {
           author: "John Doe",
           commentId: comment3.id,
         }),
-      ])
+      ]),
     );
   });
 
@@ -79,7 +79,7 @@ describe("Fetch Comment Comments", () => {
         makeQuestionComment({
           questionId: new UniqueEntityID("question-1"),
           authorId: student.id,
-        })
+        }),
       );
     }
 

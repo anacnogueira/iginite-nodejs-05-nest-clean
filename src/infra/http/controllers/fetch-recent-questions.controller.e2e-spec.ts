@@ -23,6 +23,7 @@ describe("Fetch recent questions (e2e)", () => {
 
     studentFactory = moduleRef.get(StudentFactory);
     questionFactory = moduleRef.get(QuestionFactory);
+
     jwt = moduleRef.get(JwtService);
     await app.init();
   });

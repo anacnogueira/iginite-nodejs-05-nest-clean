@@ -21,7 +21,7 @@ describe("Fetch Recent Questions", () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     );
     sut = new FetchRecentQuestionsUseCase(inMemoryQuestionsRepository);
   });
@@ -30,19 +30,19 @@ describe("Fetch Recent Questions", () => {
     await inMemoryQuestionsRepository.create(
       makeQuestion({
         createdAt: new Date(2023, 7, 16),
-      })
+      }),
     );
 
     await inMemoryQuestionsRepository.create(
       makeQuestion({
         createdAt: new Date(2023, 7, 1),
-      })
+      }),
     );
 
     await inMemoryQuestionsRepository.create(
       makeQuestion({
         createdAt: new Date(2023, 7, 15),
-      })
+      }),
     );
 
     const result = await sut.execute({

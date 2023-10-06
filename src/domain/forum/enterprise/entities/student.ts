@@ -25,7 +25,7 @@ export class Student extends Entity<StudentProps> {
       {
         ...props,
       },
-      id
+      id,
     );
 
     return student;

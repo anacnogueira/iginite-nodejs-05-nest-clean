@@ -13,7 +13,7 @@ describe("Fetch Comment Comments", () => {
   beforeEach(() => {
     inMemoryStudentsRepository = new InMemoryStudentsRepository();
     inMemoryAnswersCommentsRepository = new InMemoryAnswerCommentsRepository(
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     );
     sut = new FetchAnswerCommentsUseCase(inMemoryAnswersCommentsRepository);
   });
@@ -62,7 +62,7 @@ describe("Fetch Comment Comments", () => {
         makeAnswerComment({
           answerId: new UniqueEntityID("answer-1"),
           authorId: student.id,
-        })
+        }),
       );
     }
 

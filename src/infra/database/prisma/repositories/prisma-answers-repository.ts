@@ -10,7 +10,7 @@ import { AnswerAttachmentsRepository } from "@/domain/forum/application/reposito
 export class PrismaAnswersRepository implements AnswersRepository {
   constructor(
     private prisma: PrismaService,
-    private answerAttachmentRepository: AnswerAttachmentsRepository
+    private answerAttachmentRepository: AnswerAttachmentsRepository,
   ) {}
 
   async findById(id: string): Promise<Answer | null> {
@@ -29,7 +29,7 @@ export class PrismaAnswersRepository implements AnswersRepository {
 
   async findManyByQuestionId(
     questionId: string,
-    { page }: PaginationParams
+    { page }: PaginationParams,
   ): Promise<Answer[]> {
     const answers = await this.prisma.answer.findMany({
       where: {
@@ -53,7 +53,7 @@ export class PrismaAnswersRepository implements AnswersRepository {
     });
 
     await this.answerAttachmentRepository.createMany(
-      answer.attachments.getItems()
+      answer.attachments.getItems(),
     );
   }
 
@@ -76,10 +76,10 @@ export class PrismaAnswersRepository implements AnswersRepository {
         data,
       }),
       this.answerAttachmentRepository.createMany(
-        answer.attachments.getNewItems()
+        answer.attachments.getNewItems(),
       ),
       this.answerAttachmentRepository.deleteMany(
-        answer.attachments.getRemovedItems()
+        answer.attachments.getRemovedItems(),
       ),
     ]);
   }

@@ -8,7 +8,6 @@ import {
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe";
 import { z } from "zod";
 import { FetchAnswerCommentsUseCase } from "@/domain/forum/application/use-cases/fetch-answer-comments";
-import { CommentPresenter } from "../presenters/comment-presenter";
 import { CommentWithAuthorPresenter } from "../presenters/comment-with-author-presenter";
 
 const pageQueryParamSchema = z
@@ -29,7 +28,7 @@ export class FetchAnswerCommentsController {
   @Get()
   async handle(
     @Query("page", queryValidationPipe) page: PageQueryParamSchema,
-    @Param("answerId") answerId: string
+    @Param("answerId") answerId: string,
   ) {
     const result = await this.fetchAnswerComments.execute({
       page,

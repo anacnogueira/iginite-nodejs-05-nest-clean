@@ -14,7 +14,7 @@ describe("Delete Question Comment", () => {
   beforeEach(() => {
     inMemoryStudentsRepository = new InMemoryStudentsRepository();
     inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     );
     sut = new DeleteQuestionCommentUseCase(inMemoryQuestionCommentsRepository);
   });

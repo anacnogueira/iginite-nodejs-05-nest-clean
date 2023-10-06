@@ -23,14 +23,14 @@ describe("Comment On Question", () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     );
     inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     );
     sut = new CommentOnQuestionUseCase(
       inMemoryQuestionsRepository,
-      inMemoryQuestionCommentsRepository
+      inMemoryQuestionCommentsRepository,
     );
   });
 
@@ -46,7 +46,7 @@ describe("Comment On Question", () => {
     });
 
     expect(inMemoryQuestionCommentsRepository.items[0].content).toEqual(
-      "Comentário teste"
+      "Comentário teste",
     );
   });
 });

@@ -7,7 +7,7 @@ import {
 
 export function makeNotification(
   override: Partial<NotificationProps> = {},
-  id?: UniqueEntityID
+  id?: UniqueEntityID,
 ) {
   const notification = Notification.create(
     {
@@ -16,7 +16,7 @@ export function makeNotification(
       content: faker.lorem.sentence(10),
       ...override,
     },
-    id
+    id,
   );
 
   return notification;

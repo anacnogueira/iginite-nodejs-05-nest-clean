@@ -29,7 +29,14 @@ describe("Choose Question Best Answer", () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
+    );
+    inMemoryAnswersRepository = new InMemoryAnswersRepository(
+      inMemoryAnswerAttachmentsRepository,
+    );
+    sut = new ChooseQuestionBestAnswerUseCase(
+      inMemoryQuestionsRepository,
+      inMemoryAnswersRepository,
     );
   });
 
@@ -48,7 +55,7 @@ describe("Choose Question Best Answer", () => {
     });
 
     expect(inMemoryQuestionsRepository.items[0].bestAnswerId).toEqual(
-      answer.id
+      answer.id,
     );
   });
 

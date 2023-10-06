@@ -19,12 +19,12 @@ describe("Delete Question", () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
-    inMemoryAttachmentsRepository = new inMemoryAttachmentsRepository();
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository();
     inMemoryStudentsRepository = new InMemoryStudentsRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     );
     sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository);
   });
@@ -34,7 +34,7 @@ describe("Delete Question", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("question-1")
+      new UniqueEntityID("question-1"),
     );
 
     await inMemoryQuestionsRepository.create(newQuestion);
@@ -47,7 +47,7 @@ describe("Delete Question", () => {
       makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityID("2"),
-      })
+      }),
     );
 
     await sut.execute({
@@ -64,7 +64,7 @@ describe("Delete Question", () => {
       {
         authorId: new UniqueEntityID("author-1"),
       },
-      new UniqueEntityID("question-1")
+      new UniqueEntityID("question-1"),
     );
 
     await inMemoryQuestionsRepository.create(newQuestion);
