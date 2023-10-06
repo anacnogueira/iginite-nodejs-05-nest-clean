@@ -69,22 +69,21 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
           `Attachment with ID "${questionAttachment.attachmentId.toString()}" does not exist.`
         );
       }
-
-      return QuestionDetails.create({
-        questionId: question.id,
-        authorId: question.authorId,
-        author: author.name,
-        title: question.title,
-        slug: question.slug,
-        content: question.content,
-        bestAnswerId: question.bestAnswerId,
-        attachments,
-        createdAt: question.createdAt,
-        updatedAt: question.updatedAt,
-      });
+      return attachment;
     });
 
-    return question;
+    return QuestionDetails.create({
+      questionId: question.id,
+      authorId: question.authorId,
+      author: author.name,
+      title: question.title,
+      slug: question.slug,
+      content: question.content,
+      bestAnswerId: question.bestAnswerId,
+      attachments,
+      createdAt: question.createdAt,
+      updatedAt: question.updatedAt,
+    });
   }
 
   async findManyRecent({ page }: PaginationParams) {
