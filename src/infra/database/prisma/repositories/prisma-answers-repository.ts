@@ -5,12 +5,13 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { PrismaAnswerMapper } from "../mappers/prisma-answer-mapper";
 import { AnswerAttachmentsRepository } from "@/domain/forum/application/repositories/answer-attachments-repository";
+import { DomainEvents } from "@/core/events/domain-events";
 
 @Injectable()
 export class PrismaAnswersRepository implements AnswersRepository {
   constructor(
     private prisma: PrismaService,
-    private answerAttachmentRepository: AnswerAttachmentsRepository,
+    private answerAttachmentRepository: AnswerAttachmentsRepository
   ) {}
 
   async findById(id: string): Promise<Answer | null> {
@@ -29,7 +30,7 @@ export class PrismaAnswersRepository implements AnswersRepository {
 
   async findManyByQuestionId(
     questionId: string,
-    { page }: PaginationParams,
+    { page }: PaginationParams
   ): Promise<Answer[]> {
     const answers = await this.prisma.answer.findMany({
       where: {
@@ -53,8 +54,10 @@ export class PrismaAnswersRepository implements AnswersRepository {
     });
 
     await this.answerAttachmentRepository.createMany(
-      answer.attachments.getItems(),
+      answer.attachments.getItems()
     );
+
+    DomainEvents.dispatchEventsForAggregate(answer.id);
   }
 
   async delete(answer: Answer): Promise<void> {
@@ -76,11 +79,13 @@ export class PrismaAnswersRepository implements AnswersRepository {
         data,
       }),
       this.answerAttachmentRepository.createMany(
-        answer.attachments.getNewItems(),
+        answer.attachments.getNewItems()
       ),
       this.answerAttachmentRepository.deleteMany(
-        answer.attachments.getRemovedItems(),
+        answer.attachments.getRemovedItems()
       ),
     ]);
+
+    DomainEvents.dispatchEventsForAggregate(answer.id);
   }
 }

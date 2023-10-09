@@ -7,12 +7,13 @@ import { PrismaQuestionMapper } from "../mappers/prisma-question-mapper";
 import { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachments-repository";
 import { QuestionDetails } from "@/domain/forum/enterprise/entities/value-objects/question-details";
 import { PrismaQuestionDetailsMapper } from "../mappers/prisma-question-details-mappers";
+import { DomainEvents } from "@/core/events/domain-events";
 
 @Injectable()
 export class PrismaQuestionsRepository implements QuestionsRepository {
   constructor(
     private prisma: PrismaService,
-    private questionAttachmentRepository: QuestionAttachmentsRepository,
+    private questionAttachmentRepository: QuestionAttachmentsRepository
   ) {}
 
   async findById(id: string): Promise<Question | null> {
@@ -84,12 +85,14 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
         data,
       }),
       this.questionAttachmentRepository.createMany(
-        question.attachments.getNewItems(),
+        question.attachments.getNewItems()
       ),
       this.questionAttachmentRepository.deleteMany(
-        question.attachments.getRemovedItems(),
+        question.attachments.getRemovedItems()
       ),
     ]);
+
+    DomainEvents.dispatchEventsForAggregate(question.id);
   }
 
   async create(question: Question): Promise<void> {
@@ -100,8 +103,10 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
     });
 
     await this.questionAttachmentRepository.createMany(
-      question.attachments.getItems(),
+      question.attachments.getItems()
     );
+
+    DomainEvents.dispatchEventsForAggregate(question.id);
   }
 
   async delete(question: Question): Promise<void> {

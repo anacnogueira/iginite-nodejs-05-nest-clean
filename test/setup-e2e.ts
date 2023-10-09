@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
+import { DomainEvents } from "@/core/events/domain-events";
 
 config({
   path: ".env",
@@ -32,6 +33,8 @@ beforeAll(async () => {
   process.env.DATABASE_URL = databaseURL;
 
   execSync("pnpm prisma migrate deploy");
+
+  DomainEvents.shouldRun = false;
 });
 
 afterAll(async () => {
