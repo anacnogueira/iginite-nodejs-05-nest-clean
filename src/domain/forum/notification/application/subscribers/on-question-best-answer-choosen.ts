@@ -4,11 +4,13 @@ import { EventHandler } from "@/core/events/event-handler";
 import { SendNotificationUseCase } from "../use-cases/send-notification";
 import { AnswersRepository } from "@/domain/forum/application/repositories/answers-repository";
 import { QuestionBestAnswerChoosenEvent } from "@/domain/forum/enterprise/events/question-best-answer-choosen-event";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class OnQuestionbestAnswerChoosen implements EventHandler {
   constructor(
     private answersRepository: AnswersRepository,
-    private sendNotification: SendNotificationUseCase,
+    private sendNotification: SendNotificationUseCase
   ) {
     this.setupSubscriptions();
   }
@@ -16,7 +18,7 @@ export class OnQuestionbestAnswerChoosen implements EventHandler {
   setupSubscriptions(): void {
     DomainEvents.register(
       this.sendQuestionBestAnswerNotification.bind(this),
-      QuestionBestAnswerChoosenEvent.name,
+      QuestionBestAnswerChoosenEvent.name
     );
   }
 
@@ -25,7 +27,7 @@ export class OnQuestionbestAnswerChoosen implements EventHandler {
     bestAnswerId,
   }: QuestionBestAnswerChoosenEvent) {
     const answer = await this.answersRepository.findById(
-      bestAnswerId.toString(),
+      bestAnswerId.toString()
     );
 
     if (answer) {
