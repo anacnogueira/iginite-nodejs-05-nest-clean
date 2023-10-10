@@ -5,13 +5,13 @@ import { JwtStrategy } from "./jwt.strategy";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtAuthGuard } from "./jwt-auth.guard";
 import { EnvService } from "../env/env.service";
-import { envModule } from "../env/env.module";
+import { EnvModule } from "../env/env.module";
 
 @Module({
   imports: [
     PassportModule,
     JwtModule.registerAsync({
-      imports: [envModule],
+      imports: [EnvModule],
       inject: [EnvService],
       global: true,
       useFactory(env: EnvService) {

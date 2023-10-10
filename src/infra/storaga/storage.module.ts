@@ -1,10 +1,10 @@
 import { Uploader } from "@/domain/forum/application/storage/uploader";
 import { Module } from "@nestjs/common";
 import { R2Storage } from "./r2-storage";
-import { envModule } from "../env/env.module";
+import { EnvModule } from "../env/env.module";
 
 @Module({
-  imports: [envModule],
+  imports: [EnvModule],
   providers: [
     {
       provide: Uploader,
